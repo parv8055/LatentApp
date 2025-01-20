@@ -1,27 +1,63 @@
 import { Router } from 'express';
 import {generateToken, verifyToken} from 'authenticator';
+import { client } from '@repo/db/client';
+import { sign } from 'jsonwebtoken';
+import { JWT_SECRET } from '../../config';
+
 const router:Router = Router();
 
+router.post('/signup',async (req, res) => {
+  const number = req.body.phoneNumber;
+  const totp = generateToken(number + 'signup');
 
-router.post('/signup', (req, res) => {
-  const phoneNumber = req.body.phoneNumber;
-  const totp = generateToken(phoneNumber + 'signup');
+  const user =await client.user.upsert({
+    where: {
+      number
+    },
+    create: {
+      number,
+      name:""
+    },
+    update: {}
+  });
+
+  if(process.env.NODE_ENV === 'production'){
+    //send otp to user
+  }
   res.json({
-    totp
+    data:totp,
   });
 });
 
-router.post('/signup/verify', (req, res) => {
-  const phoneNumber = req.body.phoneNumber;      
-  const otp = req.body.otp;      
-  if(!verifyToken(phoneNumber + 'signup', otp)){
+router.post('/signup/verify', async (req, res) => {
+  const number = req.body.phoneNumber;      
+  const name = req.body.name;      
+  const otp = req.body.otp;   
+
+  if(!verifyToken(number + 'signup', otp)){
     res.json({
       message: 'Invalid OTP'
     });
-    return;
+    return
   }
+
+  const userId = await client.user.update({
+    where: {
+      number
+    },
+      data: {
+        name,
+        verified: true
+      }
+  })
+
+   const token = sign({
+    userId
+  }, JWT_SECRET);
+
+
   res.json({
-    verified: true
+    token
   });  
 });
 
