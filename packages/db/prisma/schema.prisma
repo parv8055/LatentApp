@@ -23,11 +23,12 @@ model User {
 }
 
 model Admin {
-  id       String  @id @default(uuid())
-  number   String  @unique
-  name     String
-  verified Boolean @default(false)
-  Event    Event[]
+  id        String   @id @default(uuid())
+  number    String   @unique
+  name      String
+  verified  Boolean  @default(false)
+  Event     Event[]
+  startTime DateTime
 }
 
 model Event {
@@ -39,6 +40,8 @@ model Event {
   admin       Admin      @relation(fields: [adminId], references: [id])
   Booking     Booking[]
   Payments    Payments[]
+  locationId    String
+  location      Location   @relation(fields: [locationId], references: [id])
 }
 
 model Booking {
@@ -65,7 +68,7 @@ model SeatType {
   description String
   event       String
   price       Int
-  seats        Seat[]
+  seats       Seat[]
 }
 
 model Payments {
@@ -75,6 +78,14 @@ model Payments {
   status  PaymentState
   event   Event        @relation(fields: [eventId], references: [id])
   user    User         @relation(fields: [userId], references: [id])
+}
+
+model Location {
+  id                String    @id      @default(uuid())
+  name              String
+  description       String
+  imageUrl          String
+  event             Event[]
 }
 
 enum PaymentState {

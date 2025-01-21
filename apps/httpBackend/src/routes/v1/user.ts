@@ -145,10 +145,4 @@ router.post('/signin/verify', async (req, res) => {
   })
 });
 
-
-
-
-
-
-
 export default router;
