@@ -6,13 +6,13 @@
   "scripts": {
     "build": "tsc -b",
     "start": "NODE_ENV=production node dist/index.js",
-    "start:dev": "node dist/index.js",
-    "dev": "pnpm build && pnpm start:dev"
+    "dev": "pnpm run build && NODE_ENV=dev node dist/index.js"
   },
   "devDependencies": {
-    "@repo/typescript-config": "workspace:*",
     "@repo/db": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
     "@types/authenticator": "^1.1.4",
+    "@types/cookie-parser": "^1.4.8",
     "@types/express": "^5.0.0"
   },
   "keywords": [],
@@ -23,6 +23,7 @@
     "@types/express": "^5.0.0",
     "@types/jsonwebtoken": "^9.0.7",
     "authenticator": "^1.1.5",
+    "cookie-parser": "^1.4.7",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
