@@ -1,22 +1,22 @@
 import { Router } from 'express';
 import { client } from '@repo/db/client';
 import { sign } from 'jsonwebtoken';
-import { JWT_SECRET } from '../../config';
-import { sendMessage } from '../../utils/twilio';
-import { getToken, verifyToken } from '../../utils/totp';
+import { JWT_PASSWORD } from '../../../config';
+import { sendMessage } from '../../../utils/twilio';
+import { getToken, verifyToken } from '../../../utils/totp';
 
 const router: Router = Router();
 
-router.get('/', function (req, res): any {
-  // Cookies that have not been signed
-  console.log('Cookies: ', req.cookies)
+// router.get('/', function (req, res): any {
+//   // Cookies that have not been signed
+//   console.log('Cookies: ', req.cookies)
 
-  // Cookies that have been signed
-  console.log('Signed Cookies: ', req.signedCookies)
-  return res.json({
-    message: 'Welcome to the latent API'
-  })
-})
+//   // Cookies that have been signed
+//   console.log('Signed Cookies: ', req.signedCookies)
+//   return res.json({
+//     message: 'Welcome to the latent API'
+//   })
+// })
 
 router.post('/signup', async (req, res) => {
   const number = req.body.number;
@@ -74,13 +74,17 @@ router.post('/signup/verify', async (req, res) => {
 
   const token = sign({
     userId: user.id
-  }, JWT_SECRET);
+  }, JWT_PASSWORD);
 
 
-  res.cookie('token', token, {
-    httpOnly: true
-  }).json({
-    verified: true
+  // res.cookie('token', token, {
+  //   httpOnly: true
+  // }).json({
+  //   verified: true
+  // })
+
+  res.json({
+    token
   })
 });
 
@@ -135,13 +139,17 @@ router.post('/signin/verify', async (req, res) => {
 
   const token = sign({
     userId: user.id
-  }, JWT_SECRET);
+  }, JWT_PASSWORD);
 
 
-  res.cookie('token', token, {
-    httpOnly: true
-  }).json({
-    verified: true
+ // res.cookie('token', token, {
+  //   httpOnly: true
+  // }).json({
+  //   verified: true
+  // })
+
+  res.json({
+    token
   })
 });
 

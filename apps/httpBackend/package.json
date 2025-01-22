@@ -11,9 +11,7 @@
   "devDependencies": {
     "@repo/db": "workspace:*",
     "@repo/typescript-config": "workspace:*",
-    "@types/authenticator": "^1.1.4",
-    "@types/cookie-parser": "^1.4.8",
-    "@types/express": "^5.0.0"
+    "@repo/common": "workspace:*"
   },
   "keywords": [],
   "author": "",
