@@ -9,7 +9,8 @@ const router: Router = Router();
 
 router.post('/', adminMiddleware, async (req, res) => {
     const { data, success } = CreateEventSchema.safeParse(req.body)
-    const adminId = req.userId
+        // @ts-ignore
+        const adminId = req.userId
     if (!success) {
         res.status(400).json({ error: 'Invalid data' })
         return
@@ -20,8 +21,9 @@ router.post('/', adminMiddleware, async (req, res) => {
                 name: data.name,
                 description: data.description,
                 startTime: data.startTime,
-                locationId: data.location,
+                locationId: data.locationId,
                 banner: data.banner,
+                adminId: adminId,
             }
         })
         res.json({

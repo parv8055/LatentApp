@@ -34,6 +34,7 @@ export function verifyToken(req: Request, res: Response, secret: string): boolea
         if (typeof decoded === "string") {
             return false;
         }
+        // @ts-ignore
         req.userId = decoded.userId;
     } catch(e) {
         return false;

@@ -82,15 +82,15 @@ importers:
         specifier: ^5.4.2
         version: 5.4.2
     devDependencies:
+      '@repo/common':
+        specifier: workspace:*
+        version: link:../../packages/common
       '@repo/db':
         specifier: workspace:*
         version: link:../../packages/db
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../../packages/typescript-config
-      '@types/cookie-parser':
-        specifier: ^1.4.8
-        version: 1.4.8(@types/express@5.0.0)
 
   apps/user-fe:
     dependencies:
@@ -125,6 +125,16 @@ importers:
       typescript:
         specifier: 5.5.4
         version: 5.5.4
+
+  packages/common:
+    dependencies:
+      zod:
+        specifier: ^3.24.1
+        version: 3.24.1
+    devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
 
   packages/db:
     dependencies:
@@ -779,11 +789,6 @@ packages:
 
   '@types/connect@3.4.38':
     resolution: {integrity: sha512-K6uROf1LD88uDQqJCktA4yzL1YYAK6NgfsI0v/mTgyPKWsX1CnJ0XPSDhViejru1GcRkLWb8RlzFYJRqGUbaug==}
-
-  '@types/cookie-parser@1.4.8':
-    resolution: {integrity: sha512-l37JqFrOJ9yQfRQkljb41l0xVphc7kg5JTjjr+pLRZ0IyZ49V4BQ8vbF4Ut2C2e+WH4al3xD3ZwYwIUfnbT4NQ==}
-    peerDependencies:
-      '@types/express': '*'
 
   '@types/estree@1.0.6':
     resolution: {integrity: sha512-AYnb1nQyY49te+VRAVgmzfcgjYS91mY5P0TKUDCLEM+gNnA+3T6rWITXRLYCpahpqSQbN5cE+gHpnPyXjHWxcw==}
@@ -2954,6 +2959,9 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
 
+  zod@3.24.1:
+    resolution: {integrity: sha512-muH7gBL9sI1nciMZV67X5fTKKBLtwpZ5VBp1vsOQzj1MhrBZ4wlVCm3gedKZWLp0Oyel8sIGfeiz54Su+OVT+A==}
+
 snapshots:
 
   '@babel/runtime-corejs3@7.26.0':
@@ -3368,10 +3376,6 @@ snapshots:
   '@types/connect@3.4.38':
     dependencies:
       '@types/node': 20.17.6
-
-  '@types/cookie-parser@1.4.8(@types/express@5.0.0)':
-    dependencies:
-      '@types/express': 5.0.0
 
   '@types/estree@1.0.6': {}
 
@@ -5924,3 +5928,5 @@ snapshots:
   yn@3.1.1: {}
 
   yocto-queue@0.1.0: {}
+
+  zod@3.24.1: {}

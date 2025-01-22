@@ -22,13 +22,18 @@ model User {
   Payments Payments[]
 }
 
+enum AdminType {
+  SuperAdmin
+  Creator
+}
+
 model Admin {
-  id        String   @id @default(uuid())
-  number    String   @unique
-  name      String
-  verified  Boolean  @default(false)
-  Event     Event[]
-  startTime DateTime
+  id       String  @id @default(uuid())
+  number   String  @unique
+  name     String
+  verified Boolean @default(false)
+  Event    Event[]
+  type     AdminType
 }
 
 model Event {
@@ -40,8 +45,9 @@ model Event {
   admin       Admin      @relation(fields: [adminId], references: [id])
   Booking     Booking[]
   Payments    Payments[]
-  locationId    String
-  location      Location   @relation(fields: [locationId], references: [id])
+  startTime   DateTime
+  locationId  String
+  location Location @relation(fields: [locationId], references: [id])
 }
 
 model Booking {
@@ -81,11 +87,11 @@ model Payments {
 }
 
 model Location {
-  id                String    @id      @default(uuid())
-  name              String
-  description       String
-  imageUrl          String
-  event             Event[]
+  id          String  @id @default(uuid())
+  name        String
+  description String
+  imageUrl    String
+  event       Event[]
 }
 
 enum PaymentState {

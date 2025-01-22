@@ -8,6 +8,7 @@ const router: Router = Router();
 
 router.post('/', adminMiddleware, async (req, res) => {
     const { data, success } = CreateLocationSchema.safeParse(req.body)
+            // @ts-ignore
     const adminId = req.userId
     if (!success) {
         res.status(400).json({ error: 'Invalid data' })
@@ -18,7 +19,7 @@ router.post('/', adminMiddleware, async (req, res) => {
             data: {
                 name: data.name,
                 description: data.description,
-                imageUrl: data.imageUrl,
+                imageUrl: data.banner,
             }
         })
         res.json({
